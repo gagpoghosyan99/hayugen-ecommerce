@@ -1,0 +1,220 @@
+.cloth {
+  display: grid;
+  grid-template-columns: minmax(16rem, 22rem) minmax(0, 1fr) 6.5rem;
+  gap: clamp(1.2rem, 3vw, 3rem);
+  align-items: center;
+  min-height: min(88svh, 52rem);
+  padding: clamp(3.2rem, 6vw, 5.5rem) clamp(1.2rem, 5vw, 5rem);
+  background:
+    radial-gradient(70% 50% at 70% 18%, rgb(184 151 90 / 16%), transparent 55%),
+    linear-gradient(180deg, #171513 0%, #10100e 70%, #0c0c0b 100%);
+  color: #f4efe6;
+}
+
+.cloth-kicker,
+.cloth-view,
+.cloth-turn span {
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.cloth-copy h2 {
+  margin: 0.4rem 0 0.8rem;
+  font-family: var(--serif);
+  font-size: clamp(3.4rem, 6vw, 5.4rem);
+  font-weight: 500;
+  line-height: 0.92;
+}
+
+.cloth-copy p {
+  max-width: 22rem;
+  color: rgb(244 239 230 / 74%);
+}
+
+.cloth-price {
+  margin: 1.2rem 0 0.4rem;
+  color: #f4efe6;
+  letter-spacing: 0.08em;
+}
+
+.cloth-sizes {
+  margin: 1rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.cloth-sizes legend {
+  margin-bottom: 0.55rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgb(244 239 230 / 62%);
+}
+
+.cloth-sizes div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.cloth-sizes button,
+.cloth-turn button,
+.cloth-thumbs button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.cloth-sizes button {
+  min-width: 2.6rem;
+  min-height: 2.6rem;
+  border: 1px solid rgb(244 239 230 / 28%);
+  background: transparent;
+  color: #f4efe6;
+}
+
+.cloth-sizes button[aria-pressed="true"] {
+  background: #f4efe6;
+  color: #111;
+  border-color: #f4efe6;
+}
+
+.cloth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.3rem;
+}
+
+.cloth-link {
+  border-color: rgb(244 239 230 / 45%);
+  color: #f4efe6;
+}
+
+.cloth-link:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.cloth-stage {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.cloth-stage:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 8px;
+}
+
+.cloth-bar {
+  width: min(100%, 28rem);
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d7c48a 18%, #8c6d32 50%, #d7c48a 82%, transparent);
+  box-shadow: 0 10px 18px rgb(0 0 0 / 35%);
+}
+
+.cloth-frame {
+  width: min(100%, 32rem);
+  height: min(62vh, 34rem);
+  margin: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(50% 40% at 50% 42%, rgb(184 151 90 / 12%), transparent 70%),
+    #141210;
+  box-shadow: 0 28px 50px rgb(0 0 0 / 38%);
+}
+
+.cloth-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.cloth-turn {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.cloth-turn button {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgb(244 239 230 / 35%);
+  border-radius: 999px;
+  background: transparent;
+  color: #f4efe6;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.cloth-turn button:hover,
+.cloth-turn button:focus-visible,
+.cloth-thumbs button:focus-visible,
+.cloth-sizes button:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.cloth-thumbs {
+  display: grid;
+  gap: 0.55rem;
+  align-content: center;
+}
+
+.cloth-thumbs button {
+  padding: 0;
+  border: 1px solid transparent;
+  background: #1a1816;
+  opacity: 0.62;
+}
+
+.cloth-thumbs button[aria-selected="true"] {
+  border-color: var(--gold);
+  opacity: 1;
+}
+
+.cloth-thumbs img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: contain;
+  object-position: center center;
+  background: #141210;
+}
+
+.cloth .status { color: var(--gold); min-height: 1.4rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .cloth-frame img {
+    animation: cloth-in 0.45s var(--ease);
+  }
+}
+
+@keyframes cloth-in {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 980px) {
+  .cloth {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .cloth-thumbs {
+    grid-template-columns: repeat(6, 1fr);
+    order: 3;
+  }
+  .cloth-copy { order: 2; }
+  .cloth-stage { order: 1; }
+  .cloth-frame { height: min(42vh, 20rem); }
+}
+
+@media (max-width: 640px) {
+  .cloth-thumbs { grid-template-columns: repeat(3, 1fr); }
+  .cloth-actions .btn,
+  .cloth-actions .btn-ghost { flex: 1 1 9rem; }
+}

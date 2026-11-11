@@ -70,6 +70,13 @@ web_modules/
 .env.*
 !.env.example
 
+# Maison runtime data
+data/store.json
+data/*.db
+data/*.sqlite
+data/*.sqlite-*
+data/backups/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

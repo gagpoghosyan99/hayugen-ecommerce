@@ -1,0 +1,291 @@
+{{ 'clothing-rail-hero.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.enabled -%}
+{%- liquid
+  assign rail_products = collections.frontpage.products
+  if section.settings.collection != blank
+    assign rail_products = section.settings.collection.products
+  endif
+  assign visible_count = 0
+  assign used_blocks = false
+  assign has_block_products = false
+  for block in section.blocks
+    if block.settings.product != blank
+      assign has_block_products = true
+    endif
+  endfor
+-%}
+
+<hayugen-clothing-rail
+  class="cr-section"
+  style="--cr-bg-setting: {{ section.settings.background_color }};"
+  data-mobile="{{ section.settings.mobile_presentation }}"
+  data-intensity="{{ section.settings.animation_intensity }}"
+  data-money-format="{{ shop.money_format | escape }}"
+  data-in-stock-label="{{ 'clothing_rail.in_stock' | t }}"
+  data-sold-out-label="{{ 'clothing_rail.sold_out' | t }}"
+  data-adding-label="{{ 'clothing_rail.adding' | t }}"
+  data-added-label="{{ 'clothing_rail.added' | t }}"
+>
+  <section class="cr" data-mode="rail" aria-label="{{ section.settings.heading | escape }}">
+    <header class="cr__brand">
+      {%- if section.settings.kicker != blank -%}
+        <p class="cr__kicker">{{ section.settings.kicker }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="cr__title">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="cr__lede">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a class="cr__cta" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </header>
+
+    {%- if has_block_products == false and rail_products.size == 0 -%}
+      <p class="cr-empty">{{ 'clothing_rail.empty' | t }}</p>
+    {%- else -%}
+      <div class="cr-stage">
+        <div class="cr-rail-line" aria-hidden="true"></div>
+        <div class="cr-rail" role="list">
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- assign product = block.settings.product -%}
+              {%- if product == blank or visible_count >= section.settings.max_products -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- assign visible_count = visible_count | plus: 1 -%}
+              {%- assign used_blocks = true -%}
+              {%- if visible_count == 1 -%}
+                {%- assign item_priority = 'high' -%}
+              {%- else -%}
+                {%- assign item_priority = 'auto' -%}
+              {%- endif -%}
+              <div role="listitem" {{ block.shopify_attributes }}>
+                {% render 'clothing-rail-item',
+                  product: product,
+                  index: forloop.index0,
+                  fetch_priority: item_priority
+                %}
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+          {%- unless used_blocks -%}
+            {%- for product in rail_products limit: section.settings.max_products -%}
+              {%- if forloop.first -%}
+                {%- assign item_priority = 'high' -%}
+              {%- else -%}
+                {%- assign item_priority = 'auto' -%}
+              {%- endif -%}
+              <div role="listitem">
+                {% render 'clothing-rail-item',
+                  product: product,
+                  index: forloop.index0,
+                  fetch_priority: item_priority
+                %}
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+        </div>
+
+        <div class="cr-focus" aria-hidden="true">
+          <button type="button" class="cr-focus__back" data-rail-back>
+            {{ 'clothing_rail.back' | t }}
+          </button>
+          <div class="cr-focus__stage" aria-hidden="true"></div>
+          <div class="cr-focus__panel">
+            <p class="cr-focus__kicker">{{ section.settings.kicker }}</p>
+            <h2 class="cr-focus__title" data-rail-title></h2>
+            <p class="cr-focus__price" data-rail-price></p>
+            <p class="cr-focus__stock" data-rail-stock></p>
+            <div class="cr-faces">
+              <p class="cr-legend">{{ 'clothing_rail.view' | t }}</p>
+              <button type="button" class="cr-face" data-rail-face="back" aria-pressed="true">{{ 'clothing_rail.back_view' | t }}</button>
+              <button type="button" class="cr-face" data-rail-face="front" aria-pressed="false">{{ 'clothing_rail.front_view' | t }}</button>
+            </div>
+            <div class="cr-sizes">
+              <p class="cr-legend">{{ 'clothing_rail.size' | t }}</p>
+              <div data-rail-sizes></div>
+            </div>
+            <div class="cr-colors" data-rail-colors-wrap>
+              <p class="cr-legend">{{ 'clothing_rail.color' | t }}</p>
+              <div data-rail-colors></div>
+            </div>
+            <div class="cr-actions">
+              <button type="button" class="cr-add" data-rail-add>{{ 'clothing_rail.add_to_cart' | t }}</button>
+              <a class="cr-details" data-rail-details href="#">{{ 'clothing_rail.full_details' | t }}</a>
+            </div>
+            <p class="cr-status" data-rail-status role="status"></p>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  </section>
+
+  <script type="application/json" data-rail-products>
+    [
+      {%- assign json_index = 0 -%}
+      {%- for product in rail_products -%}
+        {%- if product == blank or json_index >= section.settings.max_products -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- if json_index > 0 -%},{%- endif -%}
+        {
+          "id": {{ product.id | json }},
+          "handle": {{ product.handle | json }},
+          "title": {{ product.title | json }},
+          "url": {{ product.url | json }},
+          "price": {{ product.price | json }},
+          "price_formatted": {{ product.price | money | json }},
+          "available": {{ product.available | json }},
+          "options": [
+            {%- assign option_json_index = 0 -%}
+            {%- for option in product.options_with_values -%}
+              {%- if option.name == 'Fabric' -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- if option_json_index > 0 -%},{%- endif -%}
+              {
+                "name": {{ option.name | json }},
+                "values": {{ option.values | json }}
+              }
+              {%- assign option_json_index = option_json_index | plus: 1 -%}
+            {%- endfor -%}
+          ],
+          "variants": [
+            {%- for variant in product.variants -%}
+              {
+                "id": {{ variant.id | json }},
+                "title": {{ variant.title | json }},
+                "option1": {{ variant.option1 | json }},
+                "option2": {{ variant.option2 | json }},
+                "option3": {{ variant.option3 | json }},
+                "available": {{ variant.available | json }},
+                "price": {{ variant.price | json }},
+                "price_formatted": {{ variant.price | money | json }}
+              }{%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          ],
+          "images": [
+            {%- for image in product.images -%}
+              {{ image | image_url: width: 1200 | json }}{%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          ]
+        }
+        {%- assign json_index = json_index | plus: 1 -%}
+      {%- endfor -%}
+    ]
+  </script>
+</hayugen-clothing-rail>
+
+<script src="{{ 'clothing-rail-hero.js' | asset_url }}" defer></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Clothing rail hero",
+  "tag": "section",
+  "class": "section-clothing-rail-hero",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable interactive hero",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "HAYUGEN"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Supporting text",
+      "default": "Armenian Identity. Worn Forward."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Description",
+      "default": "Heritage reimagined for the modern generation."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Call to action label",
+      "default": "Explore the collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Call to action link"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product collection"
+    },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "Maximum garments",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "animation_intensity",
+      "label": "Animation intensity",
+      "options": [
+        { "value": "subtle", "label": "Subtle" },
+        { "value": "standard", "label": "Standard" }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "select",
+      "id": "mobile_presentation",
+      "label": "Mobile presentation",
+      "options": [
+        { "value": "swipe", "label": "Swipeable rail" },
+        { "value": "stack", "label": "Stacked looks" }
+      ],
+      "default": "swipe"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f6f3ee"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Garment",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Clothing rail hero"
+    }
+  ]
+}
+{% endschema %}

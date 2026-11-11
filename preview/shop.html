@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shop — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body>
+    <div id="site-header"></div>
+    <main class="page">
+      <p class="page-kicker">Shop</p>
+      <h1 class="page-title" id="shop-title">Collection</h1>
+      <p class="lede" id="shop-lede"></p>
+      <nav class="filters" aria-label="Collections">
+        <a href="./shop.html?cat=men" data-cat="men">Man</a>
+        <a href="./shop.html?cat=women" data-cat="women">Woman</a>
+        <a href="./shop.html?cat=accessories" data-cat="accessories">Objects</a>
+      </nav>
+      <div class="editions" id="shop-grid"></div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      const cat = new URLSearchParams(location.search).get("cat") || "men";
+      const labels = {
+        men: ["Man", "Graphic cotton. The first room."],
+        women: ["Woman", "The same codes. Her proportion."],
+        accessories: ["Objects", "Two finishes. One signal."],
+      };
+      document.body.dataset.page = cat;
+      document.getElementById("shop-title").textContent = labels[cat][0];
+      document.getElementById("shop-lede").textContent = labels[cat][1];
+      document.title = labels[cat][0] + " — HAYUGEN";
+      document.querySelector(`[data-cat="${cat}"]`)?.setAttribute("aria-current", "page");
+      HAYUGEN.api.catalog("?cat=" + encodeURIComponent(cat)).then((items) => {
+        document.getElementById("shop-grid").innerHTML = items.map(HAYUGEN.card).join("");
+      }).catch(() => {
+        document.getElementById("shop-grid").innerHTML = HAYUGEN_CATALOG.filter((item) => item.category === cat).map(HAYUGEN.card).join("");
+      });
+    </script>
+  </body>
+</html>

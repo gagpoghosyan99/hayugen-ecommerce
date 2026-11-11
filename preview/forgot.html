@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forgot password — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="forgot" class="is-gate">
+    <div id="site-header"></div>
+    <main class="account-gate">
+      <aside class="account-gate-visual">
+        <img src="./img/look/look-01.png?v=13" alt="Man in the Saryan black T-shirt and beige cap" width="720" height="2200" fetchpriority="high">
+        <p class="account-gate-mark">HAYUGEN / Private wardrobe</p>
+      </aside>
+      <section class="account-gate-panel">
+        <p class="account-gate-kicker">The HAYUGEN account</p>
+        <h1>Forgot password.</h1>
+        <p class="account-gate-lede">Enter the email on the file. The house will not say whether it knows the address.</p>
+        <form class="account-form" id="forgot">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="username" spellcheck="false" enterkeyhint="done" required placeholder="you@example.com">
+          </div>
+          <button class="btn account-submit" type="submit">Request a reset</button>
+          <p class="account-links">
+            <a href="./login.html" data-carry-next>Return to sign in</a>
+          </p>
+          <p class="status" id="forgot-status" role="status"></p>
+        </form>
+      </section>
+    </main>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script src="./js/auth.js?v=1"></script>
+    <script>
+      const auth = window.HAYUGEN_AUTH;
+      document.querySelectorAll("[data-carry-next]").forEach((link) => {
+        link.href = auth.carryNext(link.getAttribute("href"));
+      });
+      document.getElementById("forgot").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const submit = form.querySelector("[type=submit]");
+        const status = document.getElementById("forgot-status");
+        if (!form.reportValidity()) return;
+        const email = new FormData(form).get("email");
+        auth.setBusy(submit, true);
+        try {
+          const out = await HAYUGEN.api.forgot(email);
+          status.textContent = out.message;
+        } catch (err) {
+          status.textContent = err.message;
+        } finally {
+          auth.setBusy(submit, false);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,467 @@
+.hayugen-showroom {
+  --show-ivory: #f3ebe1;
+  --show-cream: #f7f3ed;
+  --show-sand: #c8b89a;
+  --show-gold: #a88a56;
+  --show-ink: #161412;
+  position: relative;
+  isolation: isolate;
+  min-height: min(92svh, 58rem);
+  overflow: hidden;
+  color: var(--show-ink);
+  background:
+    radial-gradient(80% 60% at 86% 6%, rgb(255 228 186 / 0.34), transparent 42%),
+    radial-gradient(90% 55% at 50% 100%, rgb(40 36 32 / 0.18), transparent 58%),
+    linear-gradient(180deg, #9a948b 0%, #7f7970 38%, #6a655c 68%, #58534c 100%);
+}
+
+.hayugen-showroom *,
+.hayugen-showroom *::before,
+.hayugen-showroom *::after {
+  box-sizing: border-box;
+}
+
+.hayugen-showroom-noise,
+.hayugen-showroom-sun,
+.hayugen-showroom-floor,
+.hayugen-showroom-ring,
+.hayugen-showroom-rail {
+  pointer-events: none;
+}
+
+.hayugen-showroom-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.hayugen-showroom-sun {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(118deg, transparent 36%, rgb(255 228 186 / 0.1) 54%, rgb(255 228 186 / 0.22) 70%, transparent 88%),
+    radial-gradient(42% 58% at 90% 12%, rgb(255 240 210 / 0.28), transparent 70%);
+  mix-blend-mode: soft-light;
+}
+
+.hayugen-showroom-floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  background:
+    linear-gradient(180deg, transparent, rgb(70 66 60 / 0.2) 18%, rgb(92 86 78 / 0.55)),
+    linear-gradient(90deg, rgb(40 36 32 / 0.16), transparent 28%, rgb(255 236 200 / 0.1) 72%, rgb(40 36 32 / 0.1));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12);
+}
+
+.hayugen-showroom-ring {
+  position: absolute;
+  left: 50%;
+  top: 4%;
+  width: min(72vw, 58rem);
+  height: 22%;
+  transform: translateX(-50%);
+}
+
+.hayugen-showroom-ring svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hayugen-showroom-rail {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  top: 1.72rem;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6a6864, #d8d4cc 18%, #8a8782 42%, #f2efe8 58%, #7a7772 82%, #4a4844);
+  box-shadow:
+    0 10px 18px rgb(0 0 0 / 0.28),
+    0 1px 0 rgb(255 255 255 / 0.35),
+    inset 0 1px 0 rgb(255 255 255 / 0.4);
+}
+
+.hayugen-showroom-layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(15rem, 22rem) minmax(0, 1fr) 5.4rem;
+  gap: clamp(1rem, 2vw, 2.4rem);
+  align-items: center;
+  min-height: inherit;
+  padding: clamp(2.4rem, 5vw, 4.5rem) clamp(1.4rem, 4vw, 4rem) 5.5rem;
+}
+
+.hayugen-showroom-copy {
+  max-width: 22rem;
+  animation: showroom-enter 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hayugen-showroom-kicker {
+  margin: 0 0 0.85rem;
+  font-family: Jost, "Helvetica Neue", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgb(22 20 18 / 0.48);
+}
+
+.hayugen-showroom-copy h2 {
+  margin: 0 0 1.1rem;
+  font-family: "Bodoni Moda", Didot, "Times New Roman", serif;
+  font-size: clamp(3.4rem, 6vw, 5.6rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.hayugen-showroom-copy p {
+  margin: 0 0 1.8rem;
+  max-width: 18rem;
+  font-family: Jost, "Helvetica Neue", sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: rgb(22 20 18 / 0.72);
+}
+
+.hayugen-showroom-copy a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.92rem 1.25rem 0.92rem 1.35rem;
+  border-radius: 999px;
+  background: var(--show-cream);
+  color: var(--show-ink);
+  font-family: Jost, "Helvetica Neue", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.18);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.hayugen-showroom-copy a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgb(0 0 0 / 0.22);
+}
+
+.hayugen-showroom-copy a:focus-visible {
+  outline: 2px solid var(--show-gold);
+  outline-offset: 3px;
+}
+
+.hayugen-showroom-stage {
+  position: relative;
+  min-height: 28rem;
+  animation: showroom-dolly 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hayugen-showroom-lineup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(1.2rem, 3vw, 2.8rem);
+  min-height: 26rem;
+  padding-top: 0.2rem;
+}
+
+.hayugen-showroom-slot {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(17vw, 14.25rem);
+  aspect-ratio: 2 / 3;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transform-origin: 50% 8%;
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s ease,
+    filter 0.7s ease;
+}
+
+.hayugen-showroom-slot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+  filter: drop-shadow(0 22px 18px rgb(0 0 0 / 0.32));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hayugen-showroom-slot[data-state="idle"] {
+  opacity: 0.92;
+}
+
+.hayugen-showroom-slot[data-state="focus"] {
+  opacity: 1;
+  z-index: 4;
+  transform: scale(1.18);
+}
+
+.hayugen-showroom-slot[data-state="aside-left"] {
+  opacity: 0.8;
+  transform: translateX(-8%);
+}
+
+.hayugen-showroom-slot[data-state="aside-right"] {
+  opacity: 0.8;
+  transform: translateX(8%);
+}
+
+.hayugen-showroom-slot:hover[data-state="idle"] {
+  opacity: 1;
+}
+
+.hayugen-showroom-contact {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: -1.1rem;
+  height: 1.4rem;
+  border-radius: 100%;
+  background: radial-gradient(50% 50% at 50% 50%, rgb(0 0 0 / 0.38), transparent 72%);
+}
+
+.hayugen-showroom-viewer {
+  position: relative;
+  touch-action: none;
+}
+
+.hayugen-showroom-viewer[data-zoomed="true"] img {
+  transform: scale(var(--zoom, 1));
+  transform-origin: 50% 42%;
+}
+
+.hayugen-showroom-turn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.35rem;
+  color: rgb(22 20 18 / 0.55);
+  font-family: Jost, "Helvetica Neue", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.hayugen-showroom-turn button {
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid rgb(22 20 18 / 0.2);
+  border-radius: 999px;
+  background: rgb(247 243 237 / 0.28);
+  color: inherit;
+  cursor: pointer;
+}
+
+.hayugen-showroom-turn button:hover,
+.hayugen-showroom-turn button:focus-visible {
+  border-color: rgb(22 20 18 / 0.55);
+}
+
+.hayugen-showroom-turn i {
+  display: block;
+  width: 5.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(22 20 18 / 0.4), transparent);
+}
+
+.hayugen-showroom-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+.hayugen-showroom-dots span {
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: rgb(22 20 18 / 0.22);
+}
+
+.hayugen-showroom-dots span[data-on="true"] {
+  background: var(--show-ink);
+}
+
+.hayugen-showroom-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  justify-self: end;
+}
+
+.hayugen-showroom-thumbs button {
+  width: 3.35rem;
+  height: 3.35rem;
+  padding: 0.2rem;
+  border: 1px solid rgb(22 20 18 / 0.14);
+  border-radius: 0.35rem;
+  background: rgb(247 243 237 / 0.42);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.hayugen-showroom-thumbs button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hayugen-showroom-thumbs button[aria-current="true"],
+.hayugen-showroom-thumbs button:hover,
+.hayugen-showroom-thumbs button:focus-visible {
+  border-color: rgb(22 20 18 / 0.7);
+}
+
+.hayugen-showroom-stone,
+.hayugen-showroom-rug {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hayugen-showroom-stone {
+  left: 4%;
+  bottom: 7%;
+  width: min(22vw, 14rem);
+}
+
+.hayugen-showroom-stone img,
+.hayugen-showroom-rug img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hayugen-showroom-rug {
+  left: 50%;
+  bottom: 3%;
+  width: min(48vw, 32rem);
+  transform: translateX(-20%);
+  opacity: 0.88;
+  filter: drop-shadow(0 10px 16px rgb(0 0 0 / 0.18));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+@keyframes showroom-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes showroom-dolly {
+  from { opacity: 0.64; transform: scale(1.045); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes showroom-settle {
+  from { transform: translateY(-10px); }
+  to { transform: translateY(0); }
+}
+
+.hayugen-showroom-slot img {
+  animation: showroom-settle 1.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (max-width: 1100px) {
+  .hayugen-showroom-layout {
+    grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr);
+    padding-bottom: 7rem;
+  }
+
+  .hayugen-showroom-thumbs {
+    position: absolute;
+    right: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+}
+
+@media (max-width: 760px) {
+  .hayugen-showroom {
+    min-height: auto;
+  }
+
+  .hayugen-showroom-layout {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.1rem 6.5rem;
+  }
+
+  .hayugen-showroom-copy {
+    max-width: none;
+  }
+
+  .hayugen-showroom-copy p {
+    max-width: 28rem;
+  }
+
+  .hayugen-showroom-stage {
+    min-height: 22rem;
+  }
+
+  .hayugen-showroom-lineup {
+    min-height: 22rem;
+  }
+
+  .hayugen-showroom-slot:not([data-state="focus"]) {
+    display: none;
+  }
+
+  .hayugen-showroom-slot[data-state="focus"] {
+    width: min(78vw, 20rem);
+    transform: none;
+  }
+
+  .hayugen-showroom-thumbs {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 0.4rem;
+    grid-column: 1;
+  }
+
+  .hayugen-showroom-thumbs button {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .hayugen-showroom-stone {
+    display: none;
+  }
+
+  .hayugen-showroom-rug {
+    width: 78vw;
+    transform: translateX(-50%);
+    left: 50%;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hayugen-showroom-copy,
+  .hayugen-showroom-stage,
+  .hayugen-showroom-slot,
+  .hayugen-showroom-slot img,
+  .hayugen-showroom-copy a {
+    animation: none !important;
+    transition: none !important;
+  }
+}

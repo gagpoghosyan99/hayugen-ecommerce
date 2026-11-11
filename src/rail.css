@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@source "../components/**/*.{ts,tsx}";
+@source "./**/*.{ts,tsx}";
+
+@theme {
+  --color-background: #faf7f1;
+  --color-foreground: #111111;
+  --color-muted-foreground: #6d675e;
+  --color-card: #ffffff;
+  --color-card-foreground: #111111;
+  --color-border: #d4cbbd;
+  --color-ring: #b8975a;
+  --font-sans: "Jost", "Helvetica Neue", sans-serif;
+}
+
+#home-selected {
+  color: #161412;
+  background: #6a655c;
+}
+
+#home-selected [data-slot="clothing-rail-hero"] {
+  background: transparent;
+}
+
+#home-selected [data-slot="clothing-rail-hero"] h2 {
+  font-family: "Bodoni Moda", Didot, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+#home-selected a {
+  color: inherit;
+}
+
+#home-selected .hayugen-showroom-copy a {
+  color: #111111;
+}
+
+#home-selected a.rounded-full {
+  color: var(--color-background);
+}
+
+#home-selected [data-front] [data-face-side] {
+  opacity: 0;
+}
+
+body > [role="dialog"][aria-modal="true"] {
+  z-index: 80;
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bag — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="cart">
+    <div id="site-header"></div>
+    <main class="page">
+      <p class="page-kicker">Bag</p>
+      <h1 class="page-title">Your selection</h1>
+      <div id="cart-root"></div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      const root = document.getElementById("cart-root");
+
+      function paint(cart) {
+        if (!cart.lines.length) {
+          root.innerHTML = `<p class="lede">The bag is empty.</p><p><a class="btn" href="./shop.html?cat=men">Shop the salon</a></p>`;
+          return;
+        }
+        root.innerHTML = `
+          <div class="bag">
+            <div class="line-items">
+              ${cart.lines.map((line) => {
+                const title = line.product?.title || "Piece";
+                const bits = HAYUGEN.variantBits(line.product, line.variantId);
+                const img = HAYUGEN.sized(line.product?.front, 360);
+                return `<article class="line">
+                  <a href="./product.html?handle=${encodeURIComponent(line.handle)}"><img src="${img}" alt="${HAYUGEN.esc(title)}"></a>
+                  <div>
+                    <strong>${HAYUGEN.esc(title)}</strong>
+                    <p>${HAYUGEN.esc(bits)}</p>
+                    <p>${HAYUGEN.money(line.product?.price || 0)}</p>
+                    <div class="qty">
+                      <button type="button" data-qty="-1" data-id="${HAYUGEN.esc(line.variantId)}" aria-label="Fewer ${HAYUGEN.esc(title)}">−</button>
+                      <span>${line.quantity}</span>
+                      <button type="button" data-qty="1" data-id="${HAYUGEN.esc(line.variantId)}" aria-label="More ${HAYUGEN.esc(title)}">+</button>
+                      <button class="line-remove" type="button" data-remove="${HAYUGEN.esc(line.variantId)}">Remove</button>
+                    </div>
+                  </div>
+                  <div>${HAYUGEN.money(line.lineTotal)}</div>
+                </article>`;
+              }).join("")}
+            </div>
+            <aside class="bag-summary">
+              <p class="page-kicker">To pay</p>
+              <p class="bag-total">${HAYUGEN.money(cart.total)}</p>
+              <p class="hint">Dispatch is confirmed after the order. Card numbers are not kept with the bag.</p>
+              <a class="btn" href="./checkout.html">Continue to payment</a>
+              <p><a href="./privacy.html#checkout">How payment works</a></p>
+            </aside>
+          </div>`;
+      }
+
+      async function load() {
+        try {
+          paint(await HAYUGEN.api.cart());
+        } catch (error) {
+          root.innerHTML = `<p class="error">${HAYUGEN.esc(error.message)}</p>`;
+        }
+      }
+
+      root.addEventListener("click", async (event) => {
+        const qty = event.target.closest("[data-qty]");
+        const remove = event.target.closest("[data-remove]");
+        if (!qty && !remove) return;
+        const article = event.target.closest(".line");
+        const current = Number(article?.querySelector(".qty span")?.textContent || 1);
+        try {
+          if (remove) await HAYUGEN.api.remove(remove.dataset.remove);
+          else await HAYUGEN.api.setQty(qty.dataset.id, Math.max(0, current + Number(qty.dataset.qty)));
+          await HAYUGEN.refreshChrome();
+          await load();
+        } catch (error) {
+          const note = document.createElement("p");
+          note.className = "error";
+          note.textContent = error.message;
+          root.prepend(note);
+        }
+      });
+
+      load();
+    </script>
+  </body>
+</html>

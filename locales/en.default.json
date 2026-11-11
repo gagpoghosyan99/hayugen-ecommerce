@@ -1,0 +1,17 @@
+{
+  "clothing_rail": {
+    "in_stock": "In stock",
+    "sold_out": "Sold out",
+    "adding": "Adding…",
+    "added": "Added to cart",
+    "empty": "Select a collection or garments in the theme editor to populate the clothing rail.",
+    "back": "Back to rail",
+    "view": "View",
+    "back_view": "Back",
+    "front_view": "Front",
+    "size": "Size",
+    "color": "Color",
+    "add_to_cart": "Add to cart",
+    "full_details": "View full details"
+  }
+}

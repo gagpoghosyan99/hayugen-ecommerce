@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reset password — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="reset" class="is-gate">
+    <div id="site-header"></div>
+    <main class="account-gate">
+      <aside class="account-gate-visual">
+        <img src="./img/look/look-01.png?v=14" alt="Man in the Saryan black T-shirt and beige cap" width="720" height="2200">
+        <p class="account-gate-mark">HAYUGEN / Private wardrobe</p>
+      </aside>
+      <section class="account-gate-panel">
+        <p class="account-gate-kicker">The HAYUGEN account</p>
+        <h1>Choose a new password.</h1>
+        <p class="account-gate-lede">This link works once, and only if it has not expired. Mail is not connected, so the house cannot send a new one from here.</p>
+        <form class="account-form" id="reset">
+          <div class="field">
+            <label for="new-password">New password</label>
+            <input id="new-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+          </div>
+          <div class="field">
+            <label for="confirm-password">Confirm password</label>
+            <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+          </div>
+          <button class="btn account-submit" type="submit">Save password</button>
+          <p class="account-links"><a href="./login.html">Return to sign in</a></p>
+          <p class="status" id="reset-status" role="status"></p>
+        </form>
+      </section>
+    </main>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      const form = document.getElementById("reset");
+      const status = document.getElementById("reset-status");
+      const token = new URLSearchParams(location.search).get("token") || "";
+      if (!token) status.textContent = "This reset link is not valid.";
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const data = Object.fromEntries(new FormData(form));
+        try {
+          await HAYUGEN.api.reset({ token, password: data.password, confirmPassword: data.confirmPassword });
+          status.textContent = "The password is saved. Sign in with it.";
+        } catch (error) {
+          status.textContent = error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

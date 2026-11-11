@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create account — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="register" class="is-gate">
+    <div id="site-header"></div>
+    <main class="account-gate">
+      <aside class="account-gate-visual">
+        <img src="./img/look/look-01.png?v=13" alt="Man in the Saryan black T-shirt and beige cap" width="720" height="2200" fetchpriority="high">
+        <p class="account-gate-mark">HAYUGEN / Private wardrobe</p>
+        <p class="account-gate-aside">A name, an email, a password. The order stays with the file.</p>
+      </aside>
+      <section class="account-gate-panel">
+        <p class="account-gate-kicker">The HAYUGEN account</p>
+        <h1>Open a file with the house.</h1>
+        <p class="account-gate-lede">Orders, the bag, and returns stay with you. A full card number is never stored with the file.</p>
+        <form class="account-form" id="register">
+          <div class="pay-row">
+            <div class="field">
+              <label for="first-name">First name</label>
+              <input id="first-name" name="firstName" autocomplete="given-name" maxlength="80" enterkeyhint="next" required>
+            </div>
+            <div class="field">
+              <label for="last-name">Last name</label>
+              <input id="last-name" name="lastName" autocomplete="family-name" maxlength="80" enterkeyhint="next" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="username" spellcheck="false" enterkeyhint="next" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="hint">optional</span></label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" enterkeyhint="next">
+          </div>
+          <div class="field">
+            <label for="new-password">Password</label>
+            <div class="password-wrap" data-password-wrap>
+              <input id="new-password" name="password" type="password" autocomplete="new-password" minlength="8" enterkeyhint="done" required>
+              <button type="button" data-toggle-password aria-label="Show password" aria-pressed="false">Show</button>
+            </div>
+            <p class="hint">At least 8 characters. You may paste. The browser can suggest a strong password.</p>
+          </div>
+          <div class="field">
+            <label for="confirm-password">Confirm password</label>
+            <input id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" enterkeyhint="done" required>
+          </div>
+          <label class="account-check">
+            <input type="checkbox" name="privacy" required>
+            <span>I have read the <a href="./privacy.html">Privacy Policy</a>.</span>
+          </label>
+          <button class="btn account-submit" type="submit">Create account</button>
+          <p class="account-links">
+            <a href="./login.html" data-carry-next>Already have a file? Sign in</a>
+          </p>
+          <p class="error" id="reg-error" role="alert" hidden></p>
+        </form>
+      </section>
+    </main>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script src="./js/auth.js?v=1"></script>
+    <script>
+      const auth = window.HAYUGEN_AUTH;
+      auth.redirectIfSignedIn();
+      document.querySelectorAll("[data-carry-next]").forEach((link) => {
+        link.href = auth.carryNext(link.getAttribute("href"));
+      });
+      document.getElementById("register").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const error = document.getElementById("reg-error");
+        const submit = form.querySelector("[type=submit]");
+        auth.showError(error, "");
+        if (!form.reportValidity()) return;
+        const data = Object.fromEntries(new FormData(form));
+        auth.setBusy(submit, true);
+        try {
+          if (data.password !== data.confirmPassword) {
+            auth.showError(error, "The passwords do not match.");
+            return;
+          }
+          await HAYUGEN.api.register({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            phone: data.phone || "",
+            password: data.password,
+            confirmPassword: data.confirmPassword,
+            privacy: Boolean(data.privacy),
+          });
+          location.href = auth.nextPath();
+        } catch (err) {
+          auth.showError(error, err.message);
+        } finally {
+          auth.setBusy(submit, false);
+        }
+      });
+    </script>
+  </body>
+</html>

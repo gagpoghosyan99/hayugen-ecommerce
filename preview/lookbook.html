@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lookbook — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="lookbook">
+    <div id="site-header"></div>
+    <main class="page">
+      <p class="page-kicker">Lookbook</p>
+      <h1 class="page-title">The season, still.</h1>
+      <p class="lede">Editorial of the house — backs, marks, and the cloth in daylight.</p>
+      <div class="lookbook" id="lookbook" style="margin-top:2.4rem"></div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      document.getElementById("lookbook").innerHTML = HAYUGEN_CATALOG.slice(0, 6).map((item, index) =>
+        `<a href="./product.html?handle=${item.handle}"><img src="${item.back}&width=1100" alt="${item.title}" ${index === 0 ? 'fetchpriority="high"' : 'loading="lazy"'}></a>`
+      ).join("");
+    </script>
+  </body>
+</html>

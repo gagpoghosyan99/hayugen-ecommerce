@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="login" class="is-gate">
+    <div id="site-header"></div>
+    <main class="account-gate">
+      <aside class="account-gate-visual">
+        <img src="./img/look/look-01.png?v=13" alt="Man in the Saryan black T-shirt and beige cap" width="720" height="2200" fetchpriority="high">
+        <p class="account-gate-mark">HAYUGEN / Private wardrobe</p>
+        <p class="account-gate-aside">Cloth kept for those who return.</p>
+      </aside>
+      <section class="account-gate-panel">
+        <p class="account-gate-kicker">The HAYUGEN account</p>
+        <h1>Your world. Your HAYUGEN.</h1>
+        <p class="account-gate-lede">Sign in to access your orders, saved pieces and personal details.</p>
+        <form class="account-form" id="login">
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="username" spellcheck="false" enterkeyhint="next" required placeholder="you@example.com">
+          </div>
+          <div class="field">
+            <label for="current-password">Password</label>
+            <div class="password-wrap" data-password-wrap>
+              <input id="current-password" name="password" type="password" autocomplete="current-password" enterkeyhint="done" required>
+              <button type="button" data-toggle-password aria-label="Show password" aria-pressed="false">Show</button>
+            </div>
+          </div>
+          <button class="btn account-submit" type="submit">Sign in</button>
+          <p class="account-links">
+            <span>New here? <a href="./register.html" data-carry-next>Create an account</a></span>
+            <a href="./forgot.html" data-carry-next>Forgot password</a>
+          </p>
+          <p class="error" id="login-error" role="alert" hidden></p>
+        </form>
+      </section>
+    </main>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script src="./js/auth.js?v=1"></script>
+    <script>
+      const auth = window.HAYUGEN_AUTH;
+      auth.redirectIfSignedIn();
+      document.querySelectorAll("[data-carry-next]").forEach((link) => {
+        link.href = auth.carryNext(link.getAttribute("href"));
+      });
+      document.getElementById("login").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const error = document.getElementById("login-error");
+        const submit = form.querySelector("[type=submit]");
+        auth.showError(error, "");
+        if (!form.reportValidity()) return;
+        const data = Object.fromEntries(new FormData(form));
+        auth.setBusy(submit, true);
+        try {
+          await HAYUGEN.api.login({ email: data.email, password: data.password });
+          location.href = auth.nextPath();
+        } catch (err) {
+          auth.showError(error, err.message);
+          form.querySelector("#current-password")?.focus();
+        } finally {
+          auth.setBusy(submit, false);
+        }
+      });
+    </script>
+  </body>
+</html>

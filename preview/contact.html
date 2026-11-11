@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="contact">
+    <div id="site-header"></div>
+    <main class="page">
+      <p class="page-kicker">Contact</p>
+      <h1 class="page-title">Write the house</h1>
+      <form class="form" id="desk">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="body">Note</label>
+          <textarea id="body" name="body" required></textarea>
+        </div>
+        <button class="btn" type="submit">Send</button>
+        <p class="status" id="desk-status"></p>
+      </form>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      document.getElementById("desk").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const status = document.getElementById("desk-status");
+        try {
+          await HAYUGEN.api.contact(Object.fromEntries(new FormData(event.target)));
+          status.textContent = "The desk has the note.";
+          event.target.reset();
+        } catch (error) {
+          status.textContent = error.message;
+        }
+      });
+    </script>
+  </body>
+</html>

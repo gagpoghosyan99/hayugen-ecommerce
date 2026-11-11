@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order confirmed — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="confirm">
+    <div id="site-header"></div>
+    <main class="page">
+      <p class="page-kicker">Confirmed</p>
+      <div id="confirm-root"></div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      const order = JSON.parse(sessionStorage.getItem("hayugen-last-order") || "null");
+      const root = document.getElementById("confirm-root");
+      root.innerHTML = order
+        ? `<h1 class="page-title">The order is pending</h1>
+           <p class="lede">Reference ${HAYUGEN.esc(order.ref)}. Nothing was emailed. Dispatch to ${HAYUGEN.esc(order.city)} waits until this is paid.</p>
+           <p>Total ${HAYUGEN.money(order.total)} · ${HAYUGEN.esc(order.paymentStatus || "unpaid")}</p>
+           <p>Settlement: ${HAYUGEN.esc(HAYUGEN.tenderLabel(order.pay))}. This is not a receipt.</p>
+           <p class="account-actions"><a class="btn" href="./account.html">View account</a> <a class="btn-ghost" href="./index.html">Home</a></p>`
+        : `<h1 class="page-title">No order</h1><p class="lede">There is no confirmation in this session.</p><p><a class="btn" href="./cart.html">Return to the bag</a></p>`;
+    </script>
+  </body>
+</html>

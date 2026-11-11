@@ -1,0 +1,64 @@
+{% doc %}
+Renders one hanging garment in the interactive clothing rail.
+@param {product} product - Shopify product
+@param {number} index - Zero-based rail position
+@param {string} [fetch_priority] - Optional fetchpriority value
+@example
+{% render 'clothing-rail-item', product: product, index: 0, fetch_priority: 'high' %}
+{% enddoc %}
+
+{%- liquid
+  assign rail_title = product.title | split: '|' | first | strip
+  assign rail_image = product.featured_image
+  if product.images[0]
+    assign rail_image = product.images[0]
+  endif
+-%}
+
+<button
+  type="button"
+  class="cr-item"
+  id="cr-item-{{ product.id }}"
+  data-product-id="{{ product.id }}"
+  style="--cr-vt: none; transition-delay: {{ index | times: 70 }}ms;"
+  aria-label="{{ rail_title | escape }}"
+>
+  <span class="cr-item__hook"></span>
+  <svg class="cr-item__hanger" viewBox="0 0 120 36" aria-hidden="true" focusable="false">
+    <path fill="none" stroke="#8a847a" stroke-width="2" d="M60 2.2v8"/>
+    <path fill="currentColor" d="M18 31.5c-1.2 0-1.6-1.6-.6-2.1L58.4 14.2c.5-1.8 2.7-1.8 3.2 0l41 15.2c1 .5.6 2.1-.6 2.1H18z"/>
+  </svg>
+  <span class="cr-item__garment">
+    {%- if rail_image -%}
+      {%- if fetch_priority == 'high' -%}
+        {{
+          rail_image
+          | image_url: width: 900
+          | image_tag:
+            class: 'cr-item__img',
+            widths: '280, 360, 480, 720, 900',
+            sizes: '(min-width: 750px) 18vw, 58vw',
+            alt: rail_title,
+            fetchpriority: 'high',
+            loading: 'eager'
+        }}
+      {%- else -%}
+        {{
+          rail_image
+          | image_url: width: 900
+          | image_tag:
+            class: 'cr-item__img',
+            widths: '280, 360, 480, 720, 900',
+            sizes: '(min-width: 750px) 18vw, 58vw',
+            alt: rail_title,
+            loading: 'eager'
+        }}
+      {%- endif -%}
+    {%- endif -%}
+  </span>
+  <span class="cr-item__shadow"></span>
+  <span class="cr-item__meta">
+    <span class="cr-item__name">{{ rail_title }}</span>
+    <span class="cr-item__price">{{ product.price | money }}</span>
+  </span>
+</button>

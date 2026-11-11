@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="checkout">
+    <div id="site-header"></div>
+    <main class="page">
+      <p class="page-kicker">Checkout</p>
+      <h1 class="page-title">Place the order</h1>
+      <div class="checkout">
+        <form class="form" id="order">
+          <div class="secure-note">
+            <strong>Unpaid until the house can charge</strong>
+            <span>Card charging is not connected. This places a pending order. No card number is asked for, and nothing is marked paid.</span>
+          </div>
+          <h2 class="page-kicker">Dispatch</h2>
+          <div class="field" id="saved-address-field" hidden>
+            <label for="saved-address">Saved address</label>
+            <select id="saved-address" name="savedAddress"></select>
+          </div>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" autocomplete="shipping name" enterkeyhint="next" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="shipping email" enterkeyhint="next" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="shipping tel" enterkeyhint="next">
+          </div>
+          <div class="field">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" autocomplete="shipping street-address" rows="3" required></textarea>
+          </div>
+          <div class="pay-row">
+            <div class="field">
+              <label for="city">City</label>
+              <input id="city" name="city" autocomplete="shipping address-level2" enterkeyhint="next" required>
+            </div>
+            <div class="field">
+              <label for="postal">Postal code</label>
+              <input id="postal" name="postal" autocomplete="shipping postal-code" enterkeyhint="next">
+            </div>
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <input id="country" name="country" autocomplete="shipping country-name" enterkeyhint="next" required>
+          </div>
+          <fieldset class="choices" id="shipping-choices">
+            <legend>Dispatch</legend>
+          </fieldset>
+          <fieldset class="choices">
+            <legend>How this will be settled</legend>
+            <label><input type="radio" name="pay" value="transfer" checked required> Bank transfer — still unpaid</label>
+            <label><input type="radio" name="pay" value="account"> Account — still unpaid, sign-in required</label>
+          </fieldset>
+          <p class="hint">A browser return does not mark this paid. <a href="./login.html?next=./checkout.html">Sign in</a> to keep the order on the file. <a href="./privacy.html#checkout">Privacy</a></p>
+          <button class="btn" type="submit">Place pending order</button>
+          <p class="error" id="order-error" role="alert" hidden></p>
+        </form>
+        <aside id="order-recap" class="line-items" aria-label="Bag"></aside>
+      </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      const form = document.getElementById("order");
+      const recap = document.getElementById("order-recap");
+      const error = document.getElementById("order-error");
+      const savedField = document.getElementById("saved-address-field");
+      const savedSelect = document.getElementById("saved-address");
+      let signedIn = false;
+      let addresses = [];
+
+      function fillAddress(row) {
+        if (!row) return;
+        document.getElementById("name").value = row.name || "";
+        document.getElementById("phone").value = row.phone || "";
+        document.getElementById("address").value = row.line1 || "";
+        document.getElementById("city").value = row.city || "";
+        document.getElementById("postal").value = row.postal || "";
+        document.getElementById("country").value = row.country || "";
+      }
+
+      HAYUGEN.api.cart().then((cart) => {
+        const goods = cart.total;
+        recap.innerHTML = cart.lines.length
+          ? cart.lines.map((line) => {
+              const title = line.product?.title || "Piece";
+              return `<div class="line"><img src="${HAYUGEN.sized(line.product?.front, 240)}" alt=""><div><strong>${HAYUGEN.esc(title)}</strong><p>${HAYUGEN.esc(HAYUGEN.variantBits(line.product, line.variantId))} · ${line.quantity}</p></div><div>${HAYUGEN.money(line.lineTotal)}</div></div>`;
+            }).join("") + `<p class="bag-total">Total ${HAYUGEN.money(goods)}</p><p class="hint">The total is the house price. It stays unpaid.</p>`
+          : `<p class="lede">The bag is empty.</p><p><a class="btn" href="./shop.html?cat=men">Shop</a></p>`;
+        form.querySelector("[type=submit]").disabled = !cart.lines.length;
+      });
+
+      HAYUGEN.api.shipping().then((methods) => {
+        document.getElementById("shipping-choices").insertAdjacentHTML("beforeend", methods.map((method, index) =>
+          `<label><input type="radio" name="shipping" value="${HAYUGEN.esc(method.id)}" ${index === 0 ? "checked" : ""} required> ${HAYUGEN.esc(method.label)} · ${HAYUGEN.money(method.price)}</label>`
+        ).join(""));
+      });
+
+      HAYUGEN.api.me().then(async (me) => {
+        signedIn = Boolean(me.user);
+        if (!me.user) return;
+        document.getElementById("name").value = me.user.name || "";
+        document.getElementById("email").value = me.user.email || "";
+        document.getElementById("phone").value = me.user.phone || "";
+        addresses = await HAYUGEN.api.addresses();
+        if (!addresses.length) return;
+        savedField.hidden = false;
+        savedSelect.innerHTML = `<option value="">A new address</option>` + addresses.map((row) =>
+          `<option value="${HAYUGEN.esc(row.id)}">${HAYUGEN.esc(row.name)} · ${HAYUGEN.esc(row.city)}${row.isDefault ? " · Default" : ""}</option>`
+        ).join("");
+        const preferred = addresses.find((row) => row.isDefault) || addresses[0];
+        savedSelect.value = preferred.id;
+        fillAddress(preferred);
+      });
+
+      savedSelect.addEventListener("change", () => {
+        fillAddress(addresses.find((row) => row.id === savedSelect.value));
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        error.hidden = true;
+        const data = Object.fromEntries(new FormData(form));
+        if (data.pay === "account" && !signedIn) {
+          error.hidden = false;
+          error.textContent = "Sign in to place this on the account.";
+          return;
+        }
+        if (!form.reportValidity()) return;
+        const submit = form.querySelector("[type=submit]");
+        submit.disabled = true;
+        try {
+          const created = await HAYUGEN.api.checkout({
+            name: data.name,
+            email: data.email,
+            phone: data.phone || "",
+            address: data.address,
+            city: data.city,
+            postal: data.postal || "",
+            country: data.country,
+            pay: data.pay,
+            shipping: data.shipping || "yerevan",
+          });
+          sessionStorage.setItem("hayugen-last-order", JSON.stringify(created));
+          location.href = "./confirmation.html";
+        } catch (err) {
+          error.hidden = false;
+          error.textContent = err.message;
+          submit.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Piece — HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+  </head>
+  <body data-page="product">
+    <div id="site-header"></div>
+    <main class="page">
+      <div class="pdp" id="pdp"></div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script>
+      const handle = new URLSearchParams(location.search).get("handle");
+      const root = document.getElementById("pdp");
+      HAYUGEN.api.product(handle).catch(() => HAYUGEN.productByHandle(handle)).then((product) => {
+        if (!product) {
+          root.innerHTML = "<p>This piece is not in the salon.</p>";
+          return;
+        }
+        document.title = product.title + " — HAYUGEN";
+        const sizes = product.options.find((o) => o.name === "Size")?.values || ["One size"];
+        root.innerHTML = `
+          <div class="pdp-gallery">
+            <img src="${product.front}&width=1400" alt="${product.title} front" fetchpriority="high">
+            <img src="${product.back}&width=1400" alt="${product.title} back" loading="lazy">
+          </div>
+          <div>
+            <p class="page-kicker">${product.line}</p>
+            <h1 class="page-title">${product.title}</h1>
+            <p>${HAYUGEN.money(product.price)}</p>
+            <h3 class="page-kicker">Material</h3>
+            <p class="lede">${product.material}</p>
+            <h3 class="page-kicker">The print</h3>
+            <p class="lede">${product.print}</p>
+            <p class="hint">${product.origin}</p>
+            <form class="form" id="buy" style="margin-top:2rem">
+              <fieldset class="field">
+                <legend>Size</legend>
+                ${sizes.map((size, i) => `<label><input type="radio" name="size" value="${size}" ${i === 0 ? "checked" : ""}> ${size}</label>`).join(" ")}
+              </fieldset>
+              <button class="btn" type="submit">Add to bag</button>
+              <button class="btn-ghost" id="save-piece" type="button">Save</button>
+              <p class="status" id="buy-status"></p>
+            </form>
+          </div>`;
+        document.getElementById("buy").addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const size = new FormData(event.target).get("size");
+          const variant = product.variants.find((item) => Object.values(item).includes(size)) || product.variants[0];
+          try {
+            await HAYUGEN.addToCart(variant.id, product.handle, 1);
+            document.getElementById("buy-status").textContent = "In the bag.";
+          } catch (error) {
+            document.getElementById("buy-status").textContent = error.message;
+          }
+        });
+        document.getElementById("save-piece").addEventListener("click", async () => {
+          const status = document.getElementById("buy-status");
+          try {
+            await HAYUGEN.api.saveFavorite(product.handle);
+            status.textContent = "Saved to the account.";
+          } catch (error) {
+            status.textContent = error.message;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

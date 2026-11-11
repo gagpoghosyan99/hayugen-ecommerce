@@ -1,0 +1,336 @@
+{
+  "products": [
+    {
+      "id": 9221492965507,
+      "handle": "hayugen-heritage-grid-t-shirt-armenian-streetwear-copy",
+      "title": "Saryan Beige T-Shirt | Armenian Art Streetwear | HAYUGEN",
+      "type": "T-Shirt",
+      "url": "/products/hayugen-heritage-grid-t-shirt-armenian-streetwear-copy",
+      "vendor": "HAYUGEN",
+      "price": 1500000,
+      "price_min": 1500000,
+      "available": true,
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "name": "Color",
+          "position": 2,
+          "values": [
+            "Beige"
+          ]
+        },
+        {
+          "name": "Fabric",
+          "position": 3,
+          "values": [
+            "Cotton"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": 47804415541379,
+          "title": "S / Beige / Cotton",
+          "option1": "S",
+          "option2": "Beige",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": null
+        },
+        {
+          "id": 47804415606915,
+          "title": "M / Beige / Cotton",
+          "option1": "M",
+          "option2": "Beige",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": null
+        },
+        {
+          "id": 47804415672451,
+          "title": "L / Beige / Cotton",
+          "option1": "L",
+          "option2": "Beige",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": null
+        },
+        {
+          "id": 47804415737987,
+          "title": "XL / Beige / Cotton",
+          "option1": "XL",
+          "option2": "Beige",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": null
+        }
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_37_10_PM.png?v=1786200202",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_34_57_PM.png?v=1786200203",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_38_35_PM.png?v=1786200202",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_39_21_PM.png?v=1786200203",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_42_26_PM.png?v=1786200202",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_40_15_PM.png?v=1786200203"
+      ]
+    },
+    {
+      "id": 9221492113539,
+      "handle": "hayugen-heritage-signal-t-shirt-armenian-streetwear-copy",
+      "title": "Heritage Signal T-Shirt | Armenian Streetwearn | HAYUGEN",
+      "type": "T-Shirt",
+      "url": "/products/hayugen-heritage-signal-t-shirt-armenian-streetwear-copy",
+      "vendor": "HAYUGEN",
+      "price": 1500000,
+      "price_min": 1500000,
+      "available": true,
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Brown"
+          ]
+        },
+        {
+          "name": "Size",
+          "position": 2,
+          "values": [
+            "S",
+            "L"
+          ]
+        },
+        {
+          "name": "Fabric",
+          "position": 3,
+          "values": [
+            "Cotton"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": 47804409282691,
+          "title": "Brown / S / Cotton",
+          "option1": "Brown",
+          "option2": "S",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": null
+        },
+        {
+          "id": 47804409348227,
+          "title": "Brown / L / Cotton",
+          "option1": "Brown",
+          "option2": "L",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": null
+        }
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_02_56_30_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_02_44_20_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_02_58_36_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_01_45_23_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_02_46_45_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_03_05_58_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_01_40_33_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_03_03_52_PM.png?v=1786273675",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_9_2026_03_04_49_PM.png?v=1786273675"
+      ]
+    },
+    {
+      "id": 9216940146819,
+      "handle": "hayugen-heritage-signal-t-shirt-armenian-streetwear",
+      "title": "Heritage Signal Black Oversized T-Shirt | HAYUGEN",
+      "type": "T-Shirt",
+      "url": "/products/hayugen-heritage-signal-t-shirt-armenian-streetwear",
+      "vendor": "HAYUGEN",
+      "price": 1500000,
+      "price_min": 1500000,
+      "available": true,
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Black"
+          ]
+        },
+        {
+          "name": "Size",
+          "position": 2,
+          "values": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "name": "Fabric",
+          "position": 3,
+          "values": [
+            "Cotton"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": 47761453908099,
+          "title": "Black / S / Cotton",
+          "option1": "Black",
+          "option2": "S",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_38_41_PM.png?v=1786264030"
+        },
+        {
+          "id": 47761453940867,
+          "title": "Black / M / Cotton",
+          "option1": "Black",
+          "option2": "M",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_38_41_PM.png?v=1786264030"
+        },
+        {
+          "id": 47761453973635,
+          "title": "Black / L / Cotton",
+          "option1": "Black",
+          "option2": "L",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_38_41_PM.png?v=1786264030"
+        },
+        {
+          "id": 47761454006403,
+          "title": "Black / XL / Cotton",
+          "option1": "Black",
+          "option2": "XL",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_38_41_PM.png?v=1786264030"
+        }
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_38_41_PM.png?v=1786264030",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_44_47_PM.png?v=1786264029",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_43_26_PM.png?v=1786264029",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_44_55_PM.png?v=1786264029",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_41_15_PM.png?v=1786264029",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_07_45_46_PM.png?v=1786264029"
+      ]
+    },
+    {
+      "id": 9216521306243,
+      "handle": "hayugen-heritage-grid-t-shirt-armenian-streetwear",
+      "title": "Saryan Black T-Shirt | Armenian Art Streetwear | HAYUGEN",
+      "type": "T-Shirt",
+      "url": "/products/hayugen-heritage-grid-t-shirt-armenian-streetwear",
+      "vendor": "HAYUGEN",
+      "price": 1500000,
+      "price_min": 1500000,
+      "available": true,
+      "options": [
+        {
+          "name": "Size",
+          "position": 1,
+          "values": [
+            "S",
+            "M",
+            "L",
+            "XL"
+          ]
+        },
+        {
+          "name": "Color",
+          "position": 2,
+          "values": [
+            "Black"
+          ]
+        },
+        {
+          "name": "Fabric",
+          "position": 3,
+          "values": [
+            "Cotton"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "id": 47760401858691,
+          "title": "S / Black / Cotton",
+          "option1": "S",
+          "option2": "Black",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_14_50_PM.png?v=1786198920"
+        },
+        {
+          "id": 47760401924227,
+          "title": "M / Black / Cotton",
+          "option1": "M",
+          "option2": "Black",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_14_50_PM.png?v=1786198920"
+        },
+        {
+          "id": 47760401989763,
+          "title": "L / Black / Cotton",
+          "option1": "L",
+          "option2": "Black",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_14_50_PM.png?v=1786198920"
+        },
+        {
+          "id": 47760402055299,
+          "title": "XL / Black / Cotton",
+          "option1": "XL",
+          "option2": "Black",
+          "option3": "Cotton",
+          "available": true,
+          "price": 1500000,
+          "featured_image": "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_14_50_PM.png?v=1786198920"
+        }
+      ],
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_14_50_PM.png?v=1786198920",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_12_43_PM.png?v=1786198920",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_15_47_PM.png?v=1786198920",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_16_59_PM.png?v=1786198920",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_18_01_PM.png?v=1786198920",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_21_29_PM.png?v=1786198920",
+        "https://cdn.shopify.com/s/files/1/0745/1797/1075/files/ChatGPT_Image_Aug_8_2026_06_20_10_PM.png?v=1786198920"
+      ]
+    }
+  ],
+  "currency": "AMD",
+  "money_format": "{amount} AMD"
+}

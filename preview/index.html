@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HAYUGEN</title>
+    <link rel="icon" href="./img/logo-dark.png" type="image/png">
+    <link rel="stylesheet" href="./css/store.css?v=30">
+    <link rel="stylesheet" href="./css/look.css?v=25">
+    <link rel="stylesheet" href="./css/salon.css?v=2">
+    <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual"; window.scrollTo(0, 0);</script>
+  </head>
+  <body data-page="home">
+    <div id="site-header"></div>
+    <main>
+      <div data-look></div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-set">
+            <span>New in</span><b>Saryan</b><span>Heritage Signal</span><b>Yerevan</b><span>Cotton jersey</span><b>Lookbook</b>
+            <span>New in</span><b>Saryan</b><span>Heritage Signal</span><b>Yerevan</b><span>Cotton jersey</span><b>Lookbook</b>
+            <span>New in</span><b>Saryan</b><span>Heritage Signal</span><b>Yerevan</b><span>Cotton jersey</span><b>Lookbook</b>
+          </div>
+        </div>
+      </div>
+      <section class="manifesto" aria-label="The Maison">
+        <a class="manifesto-visual" href="#look">
+          <img src="./img/maison-story.jpg" alt="Armenian memory, cut in silence. Worn by those who need no introduction. Explore the look." width="1920" height="1080" loading="lazy">
+        </a>
+      </section>
+      <section class="worlds" id="home-worlds"></section>
+      <section class="selected" id="home-selected"></section>
+      <section class="essentials" aria-labelledby="essentials-label" data-reveal>
+        <p class="essentials-kicker" id="essentials-label">The essentials <span aria-hidden="true"></span></p>
+        <div class="essentials-grid">
+          <article>
+            <figure>
+              <img src="./img/editorial/essentials-cloth.jpg" alt="Natural cotton flower on warm ivory cloth" width="290" height="140">
+            </figure>
+            <h3>Cloth</h3>
+            <p>Midweight cotton that holds a graphic and a day. The material is the first line of the story — not a footnote.</p>
+          </article>
+          <article>
+            <figure>
+              <img src="./img/editorial/essentials-print.jpg" alt="Armenian ornamental textile stitch on natural cloth" width="298" height="140">
+            </figure>
+            <h3>Print</h3>
+            <p>Saryan landscapes and Heritage Signal ornament. Reverse the garment. That is where the house speaks.</p>
+          </article>
+          <article>
+            <figure>
+              <img src="./img/editorial/essentials-care.jpg" alt="Tailoring scissors, folded cloth, and a measuring tape" width="300" height="152">
+            </figure>
+            <h3>Made with care</h3>
+            <p>Designed in Yerevan. Cut to be worn, returned if untouched, dispatched by private courier.</p>
+          </article>
+        </div>
+      </section>
+      <section class="account-band" aria-labelledby="account-band-title" data-reveal>
+        <figure class="account-band-visual">
+          <img src="./img/editorial/account-neck.jpg" alt="Beige HAYUGEN oversized T-shirt, neckline and house label" width="468" height="340">
+        </figure>
+        <div class="account-band-panel">
+          <p class="account-band-kicker">The HAYUGEN account</p>
+          <h2 id="account-band-title">Your world. Your <span>HAYUGEN.</span></h2>
+          <p class="account-band-copy">Sign in to keep orders, favorites, and details in one place.</p>
+          <div class="account-band-actions">
+            <a class="account-band-in" href="./login.html">Sign in</a>
+            <a class="account-band-join" href="./register.html">Create account</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div id="site-footer"></div>
+    <script src="./js/catalog.js"></script>
+    <script src="./js/app.js?v=16"></script>
+    <script src="./js/look.js?v=31"></script>
+    <script src="./js/salon.js?v=1"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const worlds = [
+          { key: "men", title: "Man", copy: "The cut." },
+          { key: "women", title: "Woman", copy: "The same house." },
+          { key: "accessories", title: "Objects", copy: "The mark." },
+        ];
+        document.getElementById("home-worlds").innerHTML = worlds.map((world) => {
+          const product = HAYUGEN_CATALOG.find((item) => item.category === world.key);
+          return `<a class="world" href="./shop.html?cat=${world.key}">
+            <img src="${product.back}&width=1200" alt="${world.title}" width="800" height="1100" loading="lazy">
+            <div class="world-copy"><span>${world.copy}</span><h3>${world.title}</h3></div>
+          </a>`;
+        }).join("");
+      });
+    </script>
+  </body>
+</html>
