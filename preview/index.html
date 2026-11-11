@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HAYUGEN</title>
     <link rel="icon" href="./img/logo-dark.png" type="image/png">
-    <link rel="stylesheet" href="./css/store.css?v=30">
+    <link rel="stylesheet" href="./css/store.css?v=31">
     <link rel="stylesheet" href="./css/look.css?v=25">
     <link rel="stylesheet" href="./css/salon.css?v=2">
     <script>if ("scrollRestoration" in history) history.scrollRestoration = "manual"; window.scrollTo(0, 0);</script>
@@ -34,23 +34,32 @@
         <p class="essentials-kicker" id="essentials-label">The essentials <span aria-hidden="true"></span></p>
         <div class="essentials-grid">
           <article>
-            <figure>
-              <img src="./img/editorial/essentials-cloth.jpg" alt="Natural cotton flower on warm ivory cloth" width="290" height="140">
-            </figure>
+            <div class="essentials-depth">
+              <span class="essentials-aura" aria-hidden="true"></span>
+              <figure>
+                <img src="./img/editorial/essentials-cloth.jpg" alt="Natural cotton flower on warm ivory cloth" width="290" height="140">
+              </figure>
+            </div>
             <h3>Cloth</h3>
             <p>Midweight cotton that holds a graphic and a day. The material is the first line of the story — not a footnote.</p>
           </article>
           <article>
-            <figure>
-              <img src="./img/editorial/essentials-print.jpg" alt="Armenian ornamental textile stitch on natural cloth" width="298" height="140">
-            </figure>
+            <div class="essentials-depth">
+              <span class="essentials-aura" aria-hidden="true"></span>
+              <figure>
+                <img src="./img/editorial/essentials-print.jpg" alt="Armenian ornamental textile stitch on natural cloth" width="298" height="140">
+              </figure>
+            </div>
             <h3>Print</h3>
             <p>Saryan landscapes and Heritage Signal ornament. Reverse the garment. That is where the house speaks.</p>
           </article>
           <article>
-            <figure>
-              <img src="./img/editorial/essentials-care.jpg" alt="Tailoring scissors, folded cloth, and a measuring tape" width="300" height="152">
-            </figure>
+            <div class="essentials-depth">
+              <span class="essentials-aura" aria-hidden="true"></span>
+              <figure>
+                <img src="./img/editorial/essentials-care.jpg" alt="Tailoring scissors, folded cloth, and a measuring tape" width="300" height="152">
+              </figure>
+            </div>
             <h3>Made with care</h3>
             <p>Designed in Yerevan. Cut to be worn, returned if untouched, dispatched by private courier.</p>
           </article>
@@ -81,7 +90,7 @@
         const worlds = [
           { key: "men", title: "Man", copy: "The cut." },
           { key: "women", title: "Woman", copy: "The same house." },
-          { key: "accessories", title: "Objects", copy: "The mark." },
+          { key: "accessories", title: "Accessories", copy: "The mark." },
         ];
         document.getElementById("home-worlds").innerHTML = worlds.map((world) => {
           const product = HAYUGEN_CATALOG.find((item) => item.category === world.key);

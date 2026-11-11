@@ -401,6 +401,7 @@ a { color: inherit; }
 .essentials-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  perspective: 1400px;
 }
 
 .essentials article {
@@ -412,17 +413,39 @@ a { color: inherit; }
   border-inline-start: 1px solid rgb(168 138 86 / 22%);
 }
 
-.essentials figure {
+.essentials-depth {
+  position: relative;
   display: grid;
   place-items: center;
-  min-height: 11rem;
+  min-height: 13rem;
   margin: 0 0 2.1rem;
+  transform-style: preserve-3d;
+  view-timeline: --plate;
+}
+
+.essentials-aura {
+  position: absolute;
+  width: 72%;
+  height: 42%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(212 180 131 / 48%), transparent 72%);
+  filter: blur(10px);
+  translate: 0 1.4rem;
+  pointer-events: none;
+}
+
+.essentials figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  transform-style: preserve-3d;
 }
 
 .essentials img {
   width: min(100%, 13.5rem);
   height: auto;
-  filter: drop-shadow(0 10px 18px rgb(80 60 30 / 8%));
+  filter: drop-shadow(0 18px 16px rgb(0 0 0 / 45%)) drop-shadow(0 2px 0 rgb(212 180 131 / 18%));
 }
 
 .essentials h3 {
@@ -1109,20 +1132,49 @@ body.is-gate .header-tools a:hover {
       from { opacity: 0; }
     }
     .essentials-kicker,
-    .essentials article,
     .account-band-visual,
     .account-band-panel > * {
       animation: editorial-rise auto var(--ease) both;
       animation-timeline: view();
       animation-range: entry 0% entry 60%;
     }
-    .essentials article:nth-child(2) { animation-range: entry 8% entry 68%; }
-    .essentials article:nth-child(3) { animation-range: entry 16% entry 76%; }
+    @keyframes essentials-plate {
+      entry 0% {
+        opacity: 0.2;
+        translate: 0 56px;
+        rotate: x 22deg;
+        scale: 0.84;
+      }
+      entry 100%,
+      exit 0% {
+        opacity: 1;
+        translate: 0 0;
+        rotate: x 0deg;
+        scale: 1;
+      }
+      exit 100% {
+        opacity: 0.72;
+        translate: 0 -36px;
+        rotate: x -10deg;
+      }
+    }
+    @keyframes essentials-aura {
+      from { translate: 0 42px; opacity: 0.2; }
+      to { translate: 0 -22px; opacity: 0.9; }
+    }
+    .essentials-depth {
+      animation: essentials-plate auto linear both;
+      animation-timeline: view();
+    }
+    .essentials article:nth-child(2) .essentials-depth { animation-range: entry 10% exit 90%; }
+    .essentials article:nth-child(3) .essentials-depth { animation-range: entry 18% exit 82%; }
+    .essentials-aura {
+      animation: essentials-aura linear both;
+      animation-timeline: --plate;
+      animation-range: entry 0% exit 100%;
+    }
     .account-band-panel h2 { animation-range: entry 12% entry 70%; }
     .account-band-actions { animation-range: entry 22% entry 80%; }
-    .essentials article:not(:first-child) {
-      animation-name: editorial-rise, editorial-rule;
-    }
   }
 
   @supports not ((animation-timeline: view()) and (animation-range: entry)) {
